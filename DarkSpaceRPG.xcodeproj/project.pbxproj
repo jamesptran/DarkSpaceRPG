@@ -1,0 +1,582 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		75076ADB1E6DC238003C7B68 /* UI.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076ADA1E6DC238003C7B68 /* UI.xcassets */; };
+		75076ADD1E6DC23F003C7B68 /* Ships.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076ADC1E6DC23F003C7B68 /* Ships.xcassets */; };
+		75076ADF1E6DC24A003C7B68 /* Planets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076ADE1E6DC24A003C7B68 /* Planets.xcassets */; };
+		75076AE11E6DC25E003C7B68 /* Stations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076AE01E6DC25E003C7B68 /* Stations.xcassets */; };
+		759E424B1E6FC9C3000577ED /* Control.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 759E424A1E6FC9C3000577ED /* Control.xcassets */; };
+		75C74F331E6D1F3700CFEF06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F321E6D1F3700CFEF06 /* AppDelegate.swift */; };
+		75C74F391E6D1F3700CFEF06 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F381E6D1F3700CFEF06 /* GameScene.swift */; };
+		75C74F3B1E6D1F3700CFEF06 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F3A1E6D1F3700CFEF06 /* GameViewController.swift */; };
+		75C74F3E1E6D1F3700CFEF06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75C74F3C1E6D1F3700CFEF06 /* Main.storyboard */; };
+		75C74F401E6D1F3700CFEF06 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75C74F3F1E6D1F3700CFEF06 /* Assets.xcassets */; };
+		75C74F431E6D1F3700CFEF06 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 75C74F411E6D1F3700CFEF06 /* LaunchScreen.storyboard */; };
+		75C74F4E1E6D1F3700CFEF06 /* DarkSpaceRPGTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F4D1E6D1F3700CFEF06 /* DarkSpaceRPGTests.swift */; };
+		75C74F591E6D1F3700CFEF06 /* DarkSpaceRPGUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F581E6D1F3700CFEF06 /* DarkSpaceRPGUITests.swift */; };
+		75C74F681E6D1F8400CFEF06 /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F661E6D1F8400CFEF06 /* MainMenuScene.swift */; };
+		75C74F691E6D1F8400CFEF06 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F671E6D1F8400CFEF06 /* GameOverScene.swift */; };
+		75D91B8E1E6F925C006B67A1 /* Parts.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D91B8D1E6F925C006B67A1 /* Parts.xcassets */; };
+		75D91B901E6F956F006B67A1 /* Effects.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D91B8F1E6F956F006B67A1 /* Effects.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		75C74F4A1E6D1F3700CFEF06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75C74F271E6D1F3700CFEF06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75C74F2E1E6D1F3700CFEF06;
+			remoteInfo = DarkSpaceRPG;
+		};
+		75C74F551E6D1F3700CFEF06 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 75C74F271E6D1F3700CFEF06 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 75C74F2E1E6D1F3700CFEF06;
+			remoteInfo = DarkSpaceRPG;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		75076ADA1E6DC238003C7B68 /* UI.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = UI.xcassets; sourceTree = "<group>"; };
+		75076ADC1E6DC23F003C7B68 /* Ships.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Ships.xcassets; sourceTree = "<group>"; };
+		75076ADE1E6DC24A003C7B68 /* Planets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Planets.xcassets; sourceTree = "<group>"; };
+		75076AE01E6DC25E003C7B68 /* Stations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Stations.xcassets; sourceTree = "<group>"; };
+		759E424A1E6FC9C3000577ED /* Control.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Control.xcassets; sourceTree = "<group>"; };
+		75C74F2F1E6D1F3700CFEF06 /* DarkSpaceRPG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DarkSpaceRPG.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		75C74F321E6D1F3700CFEF06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		75C74F381E6D1F3700CFEF06 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		75C74F3A1E6D1F3700CFEF06 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		75C74F3D1E6D1F3700CFEF06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		75C74F3F1E6D1F3700CFEF06 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		75C74F421E6D1F3700CFEF06 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		75C74F441E6D1F3700CFEF06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75C74F491E6D1F3700CFEF06 /* DarkSpaceRPGTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DarkSpaceRPGTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75C74F4D1E6D1F3700CFEF06 /* DarkSpaceRPGTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSpaceRPGTests.swift; sourceTree = "<group>"; };
+		75C74F4F1E6D1F3700CFEF06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75C74F541E6D1F3700CFEF06 /* DarkSpaceRPGUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DarkSpaceRPGUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		75C74F581E6D1F3700CFEF06 /* DarkSpaceRPGUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DarkSpaceRPGUITests.swift; sourceTree = "<group>"; };
+		75C74F5A1E6D1F3700CFEF06 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		75C74F661E6D1F8400CFEF06 /* MainMenuScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		75C74F671E6D1F8400CFEF06 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		75D91B8D1E6F925C006B67A1 /* Parts.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Parts.xcassets; sourceTree = "<group>"; };
+		75D91B8F1E6F956F006B67A1 /* Effects.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Effects.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		75C74F2C1E6D1F3700CFEF06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C74F461E6D1F3700CFEF06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C74F511E6D1F3700CFEF06 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		75C74F261E6D1F3700CFEF06 = {
+			isa = PBXGroup;
+			children = (
+				75C74F311E6D1F3700CFEF06 /* DarkSpaceRPG */,
+				75C74F4C1E6D1F3700CFEF06 /* DarkSpaceRPGTests */,
+				75C74F571E6D1F3700CFEF06 /* DarkSpaceRPGUITests */,
+				75C74F301E6D1F3700CFEF06 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		75C74F301E6D1F3700CFEF06 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				75C74F2F1E6D1F3700CFEF06 /* DarkSpaceRPG.app */,
+				75C74F491E6D1F3700CFEF06 /* DarkSpaceRPGTests.xctest */,
+				75C74F541E6D1F3700CFEF06 /* DarkSpaceRPGUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		75C74F311E6D1F3700CFEF06 /* DarkSpaceRPG */ = {
+			isa = PBXGroup;
+			children = (
+				75C74F321E6D1F3700CFEF06 /* AppDelegate.swift */,
+				75C74F3A1E6D1F3700CFEF06 /* GameViewController.swift */,
+				75C74F661E6D1F8400CFEF06 /* MainMenuScene.swift */,
+				75C74F671E6D1F8400CFEF06 /* GameOverScene.swift */,
+				75C74F381E6D1F3700CFEF06 /* GameScene.swift */,
+				75D91B8F1E6F956F006B67A1 /* Effects.xcassets */,
+				75076ADA1E6DC238003C7B68 /* UI.xcassets */,
+				759E424A1E6FC9C3000577ED /* Control.xcassets */,
+				75076ADC1E6DC23F003C7B68 /* Ships.xcassets */,
+				75076ADE1E6DC24A003C7B68 /* Planets.xcassets */,
+				75076AE01E6DC25E003C7B68 /* Stations.xcassets */,
+				75D91B8D1E6F925C006B67A1 /* Parts.xcassets */,
+				75C74F3C1E6D1F3700CFEF06 /* Main.storyboard */,
+				75C74F3F1E6D1F3700CFEF06 /* Assets.xcassets */,
+				75C74F411E6D1F3700CFEF06 /* LaunchScreen.storyboard */,
+				75C74F441E6D1F3700CFEF06 /* Info.plist */,
+			);
+			path = DarkSpaceRPG;
+			sourceTree = "<group>";
+		};
+		75C74F4C1E6D1F3700CFEF06 /* DarkSpaceRPGTests */ = {
+			isa = PBXGroup;
+			children = (
+				75C74F4D1E6D1F3700CFEF06 /* DarkSpaceRPGTests.swift */,
+				75C74F4F1E6D1F3700CFEF06 /* Info.plist */,
+			);
+			path = DarkSpaceRPGTests;
+			sourceTree = "<group>";
+		};
+		75C74F571E6D1F3700CFEF06 /* DarkSpaceRPGUITests */ = {
+			isa = PBXGroup;
+			children = (
+				75C74F581E6D1F3700CFEF06 /* DarkSpaceRPGUITests.swift */,
+				75C74F5A1E6D1F3700CFEF06 /* Info.plist */,
+			);
+			path = DarkSpaceRPGUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		75C74F2E1E6D1F3700CFEF06 /* DarkSpaceRPG */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75C74F5D1E6D1F3700CFEF06 /* Build configuration list for PBXNativeTarget "DarkSpaceRPG" */;
+			buildPhases = (
+				75C74F2B1E6D1F3700CFEF06 /* Sources */,
+				75C74F2C1E6D1F3700CFEF06 /* Frameworks */,
+				75C74F2D1E6D1F3700CFEF06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DarkSpaceRPG;
+			productName = DarkSpaceRPG;
+			productReference = 75C74F2F1E6D1F3700CFEF06 /* DarkSpaceRPG.app */;
+			productType = "com.apple.product-type.application";
+		};
+		75C74F481E6D1F3700CFEF06 /* DarkSpaceRPGTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75C74F601E6D1F3700CFEF06 /* Build configuration list for PBXNativeTarget "DarkSpaceRPGTests" */;
+			buildPhases = (
+				75C74F451E6D1F3700CFEF06 /* Sources */,
+				75C74F461E6D1F3700CFEF06 /* Frameworks */,
+				75C74F471E6D1F3700CFEF06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75C74F4B1E6D1F3700CFEF06 /* PBXTargetDependency */,
+			);
+			name = DarkSpaceRPGTests;
+			productName = DarkSpaceRPGTests;
+			productReference = 75C74F491E6D1F3700CFEF06 /* DarkSpaceRPGTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		75C74F531E6D1F3700CFEF06 /* DarkSpaceRPGUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 75C74F631E6D1F3700CFEF06 /* Build configuration list for PBXNativeTarget "DarkSpaceRPGUITests" */;
+			buildPhases = (
+				75C74F501E6D1F3700CFEF06 /* Sources */,
+				75C74F511E6D1F3700CFEF06 /* Frameworks */,
+				75C74F521E6D1F3700CFEF06 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				75C74F561E6D1F3700CFEF06 /* PBXTargetDependency */,
+			);
+			name = DarkSpaceRPGUITests;
+			productName = DarkSpaceRPGUITests;
+			productReference = 75C74F541E6D1F3700CFEF06 /* DarkSpaceRPGUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		75C74F271E6D1F3700CFEF06 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "James Tran";
+				TargetAttributes = {
+					75C74F2E1E6D1F3700CFEF06 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = P3F5JUT699;
+						ProvisioningStyle = Automatic;
+					};
+					75C74F481E6D1F3700CFEF06 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = P3F5JUT699;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75C74F2E1E6D1F3700CFEF06;
+					};
+					75C74F531E6D1F3700CFEF06 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = P3F5JUT699;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 75C74F2E1E6D1F3700CFEF06;
+					};
+				};
+			};
+			buildConfigurationList = 75C74F2A1E6D1F3700CFEF06 /* Build configuration list for PBXProject "DarkSpaceRPG" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 75C74F261E6D1F3700CFEF06;
+			productRefGroup = 75C74F301E6D1F3700CFEF06 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				75C74F2E1E6D1F3700CFEF06 /* DarkSpaceRPG */,
+				75C74F481E6D1F3700CFEF06 /* DarkSpaceRPGTests */,
+				75C74F531E6D1F3700CFEF06 /* DarkSpaceRPGUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		75C74F2D1E6D1F3700CFEF06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75C74F3E1E6D1F3700CFEF06 /* Main.storyboard in Resources */,
+				75D91B901E6F956F006B67A1 /* Effects.xcassets in Resources */,
+				75076ADD1E6DC23F003C7B68 /* Ships.xcassets in Resources */,
+				75076AE11E6DC25E003C7B68 /* Stations.xcassets in Resources */,
+				75076ADB1E6DC238003C7B68 /* UI.xcassets in Resources */,
+				759E424B1E6FC9C3000577ED /* Control.xcassets in Resources */,
+				75D91B8E1E6F925C006B67A1 /* Parts.xcassets in Resources */,
+				75076ADF1E6DC24A003C7B68 /* Planets.xcassets in Resources */,
+				75C74F401E6D1F3700CFEF06 /* Assets.xcassets in Resources */,
+				75C74F431E6D1F3700CFEF06 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C74F471E6D1F3700CFEF06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C74F521E6D1F3700CFEF06 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		75C74F2B1E6D1F3700CFEF06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75C74F691E6D1F8400CFEF06 /* GameOverScene.swift in Sources */,
+				75C74F391E6D1F3700CFEF06 /* GameScene.swift in Sources */,
+				75C74F3B1E6D1F3700CFEF06 /* GameViewController.swift in Sources */,
+				75C74F681E6D1F8400CFEF06 /* MainMenuScene.swift in Sources */,
+				75C74F331E6D1F3700CFEF06 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C74F451E6D1F3700CFEF06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75C74F4E1E6D1F3700CFEF06 /* DarkSpaceRPGTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		75C74F501E6D1F3700CFEF06 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				75C74F591E6D1F3700CFEF06 /* DarkSpaceRPGUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		75C74F4B1E6D1F3700CFEF06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75C74F2E1E6D1F3700CFEF06 /* DarkSpaceRPG */;
+			targetProxy = 75C74F4A1E6D1F3700CFEF06 /* PBXContainerItemProxy */;
+		};
+		75C74F561E6D1F3700CFEF06 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 75C74F2E1E6D1F3700CFEF06 /* DarkSpaceRPG */;
+			targetProxy = 75C74F551E6D1F3700CFEF06 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		75C74F3C1E6D1F3700CFEF06 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				75C74F3D1E6D1F3700CFEF06 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		75C74F411E6D1F3700CFEF06 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				75C74F421E6D1F3700CFEF06 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		75C74F5B1E6D1F3700CFEF06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		75C74F5C1E6D1F3700CFEF06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		75C74F5E1E6D1F3700CFEF06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = P3F5JUT699;
+				INFOPLIST_FILE = DarkSpaceRPG/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PNoodl3s.DarkSpaceRPG;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		75C74F5F1E6D1F3700CFEF06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = P3F5JUT699;
+				INFOPLIST_FILE = DarkSpaceRPG/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PNoodl3s.DarkSpaceRPG;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		75C74F611E6D1F3700CFEF06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = P3F5JUT699;
+				INFOPLIST_FILE = DarkSpaceRPGTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PNoodl3s.DarkSpaceRPGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DarkSpaceRPG.app/DarkSpaceRPG";
+			};
+			name = Debug;
+		};
+		75C74F621E6D1F3700CFEF06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = P3F5JUT699;
+				INFOPLIST_FILE = DarkSpaceRPGTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PNoodl3s.DarkSpaceRPGTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DarkSpaceRPG.app/DarkSpaceRPG";
+			};
+			name = Release;
+		};
+		75C74F641E6D1F3700CFEF06 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = P3F5JUT699;
+				INFOPLIST_FILE = DarkSpaceRPGUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PNoodl3s.DarkSpaceRPGUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = DarkSpaceRPG;
+			};
+			name = Debug;
+		};
+		75C74F651E6D1F3700CFEF06 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = P3F5JUT699;
+				INFOPLIST_FILE = DarkSpaceRPGUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = PNoodl3s.DarkSpaceRPGUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = DarkSpaceRPG;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		75C74F2A1E6D1F3700CFEF06 /* Build configuration list for PBXProject "DarkSpaceRPG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75C74F5B1E6D1F3700CFEF06 /* Debug */,
+				75C74F5C1E6D1F3700CFEF06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75C74F5D1E6D1F3700CFEF06 /* Build configuration list for PBXNativeTarget "DarkSpaceRPG" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75C74F5E1E6D1F3700CFEF06 /* Debug */,
+				75C74F5F1E6D1F3700CFEF06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75C74F601E6D1F3700CFEF06 /* Build configuration list for PBXNativeTarget "DarkSpaceRPGTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75C74F611E6D1F3700CFEF06 /* Debug */,
+				75C74F621E6D1F3700CFEF06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		75C74F631E6D1F3700CFEF06 /* Build configuration list for PBXNativeTarget "DarkSpaceRPGUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				75C74F641E6D1F3700CFEF06 /* Debug */,
+				75C74F651E6D1F3700CFEF06 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 75C74F271E6D1F3700CFEF06 /* Project object */;
+}
