@@ -18,6 +18,7 @@ let playerCategory:UInt32 = 0x1 << 5
 let playerShieldCategory:UInt32 = 0x1 << 6
 let enemyLaserCategory:UInt32 = 0x1 << 7
 
+
 func + (left: CGPoint, right: CGPoint) -> CGPoint {
     return CGPoint(x: left.x + right.x, y: left.y + right.y)
 }
@@ -104,12 +105,38 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let score2 = SKSpriteNode(imageNamed: "numeral0")
     let score3 = SKSpriteNode(imageNamed: "numeral0")
     let playerLifeNum = SKSpriteNode(imageNamed: "numeral0")
-    let direction = CGPoint()
+    var directionNodeCoord = CGPoint()
+    var angleDifference : Float = 0
+    private var activeTouches = [UITouch:String]()
+    private var isAccelerated : Bool = false
     
     var score : Int = 0
     
     // Current system time taken from update function
     var currentSystemTime : TimeInterval = 0.0
+    
+    // Flag indicating whether we've setup the camera system yet.
+    var isCreated: Bool = false
+    // The root node of your game world. Attach game entities
+    // (player, enemies, &c.) to here.
+    var world: SKNode?
+    // The root node of our UI. Attach control buttons & state
+    // indicators here.
+    var overlay: SKNode?
+    // The camera. Move this node to change what parts of the world are visible.
+    var lense: SKCameraNode?
+    
+    override func didSimulatePhysics() {
+        if self.lense != nil {
+            self.centerOnNode(node: self.player)
+        }
+    }
+    
+    func centerOnNode(node: SKNode) {
+        let cameraPositionInScene: CGPoint = node.scene!.convert(node.position, from: node.parent!)
+        
+        node.parent?.position = CGPoint(x:(node.parent?.position.x)! - cameraPositionInScene.x, y:(node.parent?.position.y)! - cameraPositionInScene.y)
+    }
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
@@ -134,12 +161,63 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    func reverseAngle(angle: Float) -> Float {
+        if (angle < 0){
+            return 180 + angle
+        } else {
+            return angle - 180
+        }
+    }
+    
+    
+    func getPlayerDirection() -> Float {
+        return reverseAngle(angle: Float(player.zRotation) / Float.pi * Float(180))
+    }
+    
+    
+    func getTouchDirection(coordinate: CGPoint) -> Float {
+        if (coordinate.y >= 0){
+            return -atan(Float(coordinate.x) / Float(coordinate.y)) * 180 / Float.pi
+        } else {
+            if (coordinate.x < 0){
+                return atan(Float(coordinate.y) / Float(coordinate.x)) * 180 / Float.pi + 90
+            } else {
+                return atan(Float(coordinate.y) / Float(coordinate.x)) * 180 / Float.pi - 90
+            }
+        }
+    }
+    
+    func applyAngularForceTo(node: SKSpriteNode, angle: Float){
+        let angleSpeed : CGFloat = 3
+        if (angle < -180) {
+            node.physicsBody?.angularVelocity = -angleSpeed
+        } else if (angle < -3) {
+            node.physicsBody?.angularVelocity = angleSpeed
+        } else if (angle < 3) {
+            node.physicsBody?.angularVelocity = 0
+        } else if (angle < 180) {
+            node.physicsBody?.angularVelocity = -angleSpeed
+        } else if (angle < 360) {
+            node.physicsBody?.angularVelocity = angleSpeed
+        }
+    }
+    
+    // Add force to ship based on the position
+    func accelerate(anglePosition: Float){
+        let x = sin(-anglePosition * Float.pi / 180)
+        let y = cos(-anglePosition * Float.pi / 180)
+        let speed : Double = 20
+        player.physicsBody?.applyForce(CGVector(dx: speed * Double(x), dy: speed * Double(y)))
+    }
+    
+    
     func showGameOverScene(){
         let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
         let gameOverScene = GameOverScene(size: self.size)
         gameOverScene.score = self.score
         self.view?.presentScene(gameOverScene, transition: reveal)
     }
+    
     
     func screenFlashesRed(){
         let redScreen = SKSpriteNode(color: UIColor.red, size: self.frame.size)
@@ -150,9 +228,22 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
 
-    
     override func update(_ currentTime: TimeInterval) {
         currentSystemTime = currentTime
+        
+        let touchDirection = getTouchDirection(coordinate: directionNodeCoord)
+        let playerDirection = getPlayerDirection()
+        if directionNodeCoord.x == 0 && directionNodeCoord.y == 0 {
+            angleDifference = 0
+        } else {
+            angleDifference = playerDirection - touchDirection
+        }
+        
+        applyAngularForceTo(node: player, angle: angleDifference)
+        
+        if isAccelerated {
+            accelerate(anglePosition: getPlayerDirection())
+        }
         
     }
     
@@ -182,15 +273,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let node : SKNode = self.physicsWorld.body(at: touchLocation)?.node {
                 if node.name == "directionNode" {
                     print("directionNode touch began")
-                    let direction : CGPoint = touch.location(in: self) - node.position
-                    print("Direction of the movement is " + String(Float(direction.x)) + " for x and " + String(Float(direction.y)) + " for y")
-                    
+                    activeTouches[touch] = "direction"
+                    directionNodeCoord = touch.location(in: self) - node.position
                 }
+                
                 if node.name == "accelerateNode" {
+                    
+                    isAccelerated = true
                     print("accelerateNode touch began")
+                    activeTouches[touch] = "accelerate"
                 }
                 if node.name == "shootNode" {
                     print("shootNode touch began")
+                    activeTouches[touch] = "shoot"
                 }
             }
             
@@ -206,15 +301,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             if let node : SKNode = self.physicsWorld.body(at: touchLocation)?.node {
                 if node.name == "directionNode" {
                     print("directionNode touch began")
-                    let direction : CGPoint = touch.location(in: self) - node.position
-                    print("Direction of the movement is " + String(Float(direction.x)) + " for x and " + String(Float(direction.y)) + " for y")
+                    directionNodeCoord = touch.location(in: self) - node.position
                     
-                }
-                if node.name == "accelerateNode" {
-                    print("accelerateNode touch began")
-                }
-                if node.name == "shootNode" {
-                    print("shootNode touch began")
+                    print("player direction: ", getPlayerDirection())
+
                 }
             }
         }
@@ -223,28 +313,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        guard let touch = touches.first else {
-            return
-        }
         
-        let touchLocation = touch.location(in: self)
-        
-        
-        let node : SKNode = self.atPoint(touchLocation)
-        if node.name == "pauseButton" {
-            if self.isPaused == false {
-                addMenuButton()
-                addResumeButton()
-                self.isPaused = true
+        for touch in touches {
+            let touchLocation = touch.location(in: self)
+            
+            // End touches tracked
+            let button = activeTouches[touch]
+            if button == "accelerate" {
+                isAccelerated = false
+            } else if button == "direction" {
+                directionNodeCoord = CGPoint(x: 0, y: 0)
             }
-        } else if node.name == "resumeButton" {
-            self.isPaused = false
-            node.removeFromParent()
-            childNode(withName: "menuButton")?.removeFromParent()
-        } else if node.name == "menuButton" {
-            let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
-            let scene = MainMenuScene(size: self.size)
-            self.view?.presentScene(scene, transition: reveal)
+            activeTouches[touch] = nil
+            
+            
+            // Get node without physics body
+            let node : SKNode = self.atPoint(touchLocation)
+            if node.name == "pauseButton" {
+                if self.isPaused == false {
+                    addMenuButton()
+                    addResumeButton()
+                    self.isPaused = true
+                }
+            } else if node.name == "resumeButton" {
+                self.isPaused = false
+                node.removeFromParent()
+                self.overlay?.childNode(withName: "menuButton")?.removeFromParent()
+            } else if node.name == "menuButton" {
+                let reveal = SKTransition.flipHorizontal(withDuration: 0.5)
+                let scene = MainMenuScene(size: self.size)
+                self.view?.presentScene(scene, transition: reveal)
+            }
+            
+            
         }
     }
     
@@ -323,23 +424,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func addPauseButton(){
         let pauseButton = SKSpriteNode(imageNamed: "flatLight12")
-        pauseButton.position = CGPoint(x: pauseButton.size.width, y: self.frame.height - pauseButton.size.height)
+        pauseButton.position = CGPoint(x: pauseButton.size.width - self.frame.size.width/2, y: self.frame.height/2 - pauseButton.size.height)
         
         pauseButton.name = "pauseButton"
         pauseButton.zPosition = 10
-        addChild(pauseButton)
+        self.overlay?.addChild(pauseButton)
     }
     
     
     func addMenuButton() {
         let menuButton = SKLabelNode(text: "Back to main menu")
         menuButton.fontSize = 30
-        menuButton.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2 - menuButton.frame.size.height)
+        menuButton.position = CGPoint(x: 0, y: 0 - menuButton.frame.size.height/2)
         menuButton.isHidden = false
         menuButton.name = "menuButton"
         menuButton.zPosition = 10
         
-        addChild(menuButton)
+        self.overlay?.addChild(menuButton)
+    }
+    
+    
+    func addResumeButton() {
+        let resumeButton = SKLabelNode(text: "Resume")
+        resumeButton.fontSize = 50
+        resumeButton.position = CGPoint(x: 0, y: resumeButton.frame.size.height/2)
+        resumeButton.isHidden = false
+        resumeButton.name = "resumeButton"
+        resumeButton.zPosition = 10
+        
+        self.overlay?.addChild(resumeButton)
     }
     
     
@@ -349,55 +462,80 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         let shootNode = SKSpriteNode(imageNamed: "flatLight34")
         
         directionNode.size = CGSize(width: self.frame.size.width/6, height: self.frame.size.width/6)
-        directionNode.position = CGPoint(x: self.frame.size.width/7, y: self.frame.size.width/7)
+        directionNode.position = CGPoint(x: self.frame.size.width/7 - self.frame.size.width/2, y: self.frame.size.width/7 - self.frame.size.height/2)
         directionNode.name = "directionNode"
         directionNode.zPosition = 10
         directionNode.physicsBody = SKPhysicsBody(circleOfRadius: directionNode.size.width/2)
+        directionNode.physicsBody?.collisionBitMask = 0
+        directionNode.physicsBody?.categoryBitMask = 0
         
-        addChild(directionNode)
+        self.overlay?.addChild(directionNode)
         
         accelerateNode.size = CGSize(width: self.frame.size.width/10, height: self.frame.size.width/10)
-        accelerateNode.position = CGPoint(x: self.frame.size.width/10*8, y: self.frame.size.height/10*1.5)
+        accelerateNode.position = CGPoint(x: self.frame.size.width/10*8 - self.frame.size.width/2, y: self.frame.size.height/10*1.5 - self.frame.size.height/2)
         accelerateNode.name = "accelerateNode"
         accelerateNode.zPosition = 10
         accelerateNode.physicsBody = SKPhysicsBody(circleOfRadius: accelerateNode.size.width/2)
+        accelerateNode.physicsBody?.collisionBitMask = 0
+        accelerateNode.physicsBody?.categoryBitMask = 0
         
-        addChild(accelerateNode)
+        self.overlay?.addChild(accelerateNode)
         
         
         shootNode.size = accelerateNode.size
-        shootNode.position = CGPoint(x: self.frame.size.width/10*9.2, y: self.frame.size.height/10*2.5)
+        shootNode.position = CGPoint(x: self.frame.size.width/10*9.2 - self.frame.size.width/2, y: self.frame.size.height/10*2.5 - self.frame.size.height/2)
         shootNode.name = "shootNode"
         shootNode.zPosition = 10
         shootNode.physicsBody = SKPhysicsBody(circleOfRadius: shootNode.size.width/2)
+        shootNode.physicsBody?.collisionBitMask = 0
+        shootNode.physicsBody?.categoryBitMask = 0
         
-        addChild(shootNode)
+        self.overlay?.addChild(shootNode)
     }
     
     
-    func addResumeButton() {
-        let resumeButton = SKLabelNode(text: "Resume")
-        resumeButton.fontSize = 50
-        resumeButton.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2 + resumeButton.frame.size.height/2)
-        resumeButton.isHidden = false
-        resumeButton.name = "resumeButton"
-        resumeButton.zPosition = 10
+    func createWorld(){
+        // Add players
+        player.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
+        player.size = CGSize(width: 50, height: 50)
         
-        addChild(resumeButton)
+        self.world?.addChild(player)
+        player.physicsBody = SKPhysicsBody(texture: player.texture!, size: CGSize(width: player.size.width, height: player.size.height))
+        player.physicsBody?.linearDamping = 0.5
+        player.physicsBody?.angularDamping = 0
+        player.physicsBody?.collisionBitMask = 0x1
+        
+        let backgroundNode = SKSpriteNode(imageNamed: "starfield")
+        backgroundNode.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
+        backgroundNode.physicsBody?.collisionBitMask = 0
+        backgroundNode.zPosition = -1
+        self.world?.addChild(backgroundNode)
+        
     }
     
     
     override func didMove(to view: SKView) {
         print("Move to game scene, begin making scene")
+        
+        // Camera setup
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.world = SKNode()
+        self.world?.name = "world"
+        addChild(self.world!)
+        
+        self.lense = SKCameraNode()
+        self.lense?.name = "lense"
+        self.world?.addChild(self.lense!)
+        
+        // UI setup
+        self.overlay = SKNode()
+        self.overlay?.zPosition = 10
+        self.overlay?.name = "overlay"
+        addChild(self.overlay!)
+        
+        
         addPauseButton()
         addControlPad()
-        
-        player.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
-        player.setScale(0.5)
-        addChild(player)
-        player.physicsBody = SKPhysicsBody(texture: player.texture!, size: CGSize(width: player.size.width, height: player.size.height))
-        player.physicsBody?.linearDamping = 0
-        player.physicsBody?.mass = 0.02
-        
+        createWorld()
     }
 }
