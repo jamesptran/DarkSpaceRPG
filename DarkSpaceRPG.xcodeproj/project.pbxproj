@@ -11,7 +11,10 @@
 		75076ADD1E6DC23F003C7B68 /* Ships.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076ADC1E6DC23F003C7B68 /* Ships.xcassets */; };
 		75076ADF1E6DC24A003C7B68 /* Planets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076ADE1E6DC24A003C7B68 /* Planets.xcassets */; };
 		75076AE11E6DC25E003C7B68 /* Stations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076AE01E6DC25E003C7B68 /* Stations.xcassets */; };
+		753D0A261E9424B20003C662 /* Projectile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 753D0A251E9424B20003C662 /* Projectile.xcassets */; };
 		759E424B1E6FC9C3000577ED /* Control.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 759E424A1E6FC9C3000577ED /* Control.xcassets */; };
+		75BA2C5B1E9BDB0800C61236 /* Background.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75BA2C5A1E9BDB0800C61236 /* Background.sks */; };
+		75BA2C5D1E9BDF0400C61236 /* BackgroundTiles.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75BA2C5C1E9BDF0400C61236 /* BackgroundTiles.xcassets */; };
 		75C74F331E6D1F3700CFEF06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F321E6D1F3700CFEF06 /* AppDelegate.swift */; };
 		75C74F391E6D1F3700CFEF06 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F381E6D1F3700CFEF06 /* GameScene.swift */; };
 		75C74F3B1E6D1F3700CFEF06 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F3A1E6D1F3700CFEF06 /* GameViewController.swift */; };
@@ -24,6 +27,9 @@
 		75C74F691E6D1F8400CFEF06 /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F671E6D1F8400CFEF06 /* GameOverScene.swift */; };
 		75D91B8E1E6F925C006B67A1 /* Parts.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D91B8D1E6F925C006B67A1 /* Parts.xcassets */; };
 		75D91B901E6F956F006B67A1 /* Effects.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75D91B8F1E6F956F006B67A1 /* Effects.xcassets */; };
+		75D9FE531ECD29FB002BCFF1 /* PlanetClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D9FE521ECD29FB002BCFF1 /* PlanetClass.swift */; };
+		75D9FE551ECD2AC9002BCFF1 /* ExtensionFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75D9FE541ECD2AC9002BCFF1 /* ExtensionFunctions.swift */; };
+		75EE6A161ECD3891003D4A6C /* Asteroid.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75EE6A151ECD3891003D4A6C /* Asteroid.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +54,10 @@
 		75076ADC1E6DC23F003C7B68 /* Ships.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Ships.xcassets; sourceTree = "<group>"; };
 		75076ADE1E6DC24A003C7B68 /* Planets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Planets.xcassets; sourceTree = "<group>"; };
 		75076AE01E6DC25E003C7B68 /* Stations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Stations.xcassets; sourceTree = "<group>"; };
+		753D0A251E9424B20003C662 /* Projectile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Projectile.xcassets; sourceTree = "<group>"; };
 		759E424A1E6FC9C3000577ED /* Control.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Control.xcassets; sourceTree = "<group>"; };
+		75BA2C5A1E9BDB0800C61236 /* Background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Background.sks; sourceTree = "<group>"; };
+		75BA2C5C1E9BDF0400C61236 /* BackgroundTiles.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BackgroundTiles.xcassets; sourceTree = "<group>"; };
 		75C74F2F1E6D1F3700CFEF06 /* DarkSpaceRPG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DarkSpaceRPG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		75C74F321E6D1F3700CFEF06 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		75C74F381E6D1F3700CFEF06 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
@@ -67,6 +76,9 @@
 		75C74F671E6D1F8400CFEF06 /* GameOverScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
 		75D91B8D1E6F925C006B67A1 /* Parts.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Parts.xcassets; sourceTree = "<group>"; };
 		75D91B8F1E6F956F006B67A1 /* Effects.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Effects.xcassets; sourceTree = "<group>"; };
+		75D9FE521ECD29FB002BCFF1 /* PlanetClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlanetClass.swift; sourceTree = "<group>"; };
+		75D9FE541ECD2AC9002BCFF1 /* ExtensionFunctions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExtensionFunctions.swift; sourceTree = "<group>"; };
+		75EE6A151ECD3891003D4A6C /* Asteroid.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Asteroid.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,15 +134,21 @@
 				75C74F661E6D1F8400CFEF06 /* MainMenuScene.swift */,
 				75C74F671E6D1F8400CFEF06 /* GameOverScene.swift */,
 				75C74F381E6D1F3700CFEF06 /* GameScene.swift */,
+				75D9FE541ECD2AC9002BCFF1 /* ExtensionFunctions.swift */,
+				75D9FE521ECD29FB002BCFF1 /* PlanetClass.swift */,
+				75BA2C5A1E9BDB0800C61236 /* Background.sks */,
+				75BA2C5C1E9BDF0400C61236 /* BackgroundTiles.xcassets */,
 				75D91B8F1E6F956F006B67A1 /* Effects.xcassets */,
 				75076ADA1E6DC238003C7B68 /* UI.xcassets */,
+				753D0A251E9424B20003C662 /* Projectile.xcassets */,
+				75EE6A151ECD3891003D4A6C /* Asteroid.xcassets */,
 				759E424A1E6FC9C3000577ED /* Control.xcassets */,
 				75076ADC1E6DC23F003C7B68 /* Ships.xcassets */,
 				75076ADE1E6DC24A003C7B68 /* Planets.xcassets */,
 				75076AE01E6DC25E003C7B68 /* Stations.xcassets */,
+				75C74F3F1E6D1F3700CFEF06 /* Assets.xcassets */,
 				75D91B8D1E6F925C006B67A1 /* Parts.xcassets */,
 				75C74F3C1E6D1F3700CFEF06 /* Main.storyboard */,
-				75C74F3F1E6D1F3700CFEF06 /* Assets.xcassets */,
 				75C74F411E6D1F3700CFEF06 /* LaunchScreen.storyboard */,
 				75C74F441E6D1F3700CFEF06 /* Info.plist */,
 			);
@@ -267,11 +285,15 @@
 			files = (
 				75C74F3E1E6D1F3700CFEF06 /* Main.storyboard in Resources */,
 				75D91B901E6F956F006B67A1 /* Effects.xcassets in Resources */,
+				75BA2C5D1E9BDF0400C61236 /* BackgroundTiles.xcassets in Resources */,
 				75076ADD1E6DC23F003C7B68 /* Ships.xcassets in Resources */,
 				75076AE11E6DC25E003C7B68 /* Stations.xcassets in Resources */,
+				753D0A261E9424B20003C662 /* Projectile.xcassets in Resources */,
 				75076ADB1E6DC238003C7B68 /* UI.xcassets in Resources */,
 				759E424B1E6FC9C3000577ED /* Control.xcassets in Resources */,
 				75D91B8E1E6F925C006B67A1 /* Parts.xcassets in Resources */,
+				75BA2C5B1E9BDB0800C61236 /* Background.sks in Resources */,
+				75EE6A161ECD3891003D4A6C /* Asteroid.xcassets in Resources */,
 				75076ADF1E6DC24A003C7B68 /* Planets.xcassets in Resources */,
 				75C74F401E6D1F3700CFEF06 /* Assets.xcassets in Resources */,
 				75C74F431E6D1F3700CFEF06 /* LaunchScreen.storyboard in Resources */,
@@ -301,9 +323,11 @@
 			files = (
 				75C74F691E6D1F8400CFEF06 /* GameOverScene.swift in Sources */,
 				75C74F391E6D1F3700CFEF06 /* GameScene.swift in Sources */,
+				75D9FE531ECD29FB002BCFF1 /* PlanetClass.swift in Sources */,
 				75C74F3B1E6D1F3700CFEF06 /* GameViewController.swift in Sources */,
 				75C74F681E6D1F8400CFEF06 /* MainMenuScene.swift in Sources */,
 				75C74F331E6D1F3700CFEF06 /* AppDelegate.swift in Sources */,
+				75D9FE551ECD2AC9002BCFF1 /* ExtensionFunctions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

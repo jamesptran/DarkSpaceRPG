@@ -10,44 +10,18 @@ import SpriteKit
 import GameplayKit
 import CoreMotion
 
-let playerLaserCategory:UInt32 =  0x1 << 1
-let enemyShipCategory:UInt32 =  0x1 << 2
-let floorCategory:UInt32 = 0x1 << 3
-let roofCategory:UInt32 = 0x1 << 4
-let playerCategory:UInt32 = 0x1 << 5
-let playerShieldCategory:UInt32 = 0x1 << 6
-let enemyLaserCategory:UInt32 = 0x1 << 7
 
-
-func + (left: CGPoint, right: CGPoint) -> CGPoint {
-    return CGPoint(x: left.x + right.x, y: left.y + right.y)
+protocol backGround {
+    func addMoreBackgroundNode()
 }
 
-func - (left: CGPoint, right: CGPoint) -> CGPoint {
-    return CGPoint(x: left.x - right.x, y: left.y - right.y)
-}
-
-func * (point: CGPoint, scalar: CGFloat) -> CGPoint {
-    return CGPoint(x: point.x * scalar, y: point.y * scalar)
-}
-
-func / (point: CGPoint, scalar: CGFloat) -> CGPoint {
-    return CGPoint(x: point.x / scalar, y: point.y / scalar)
-}
-
-
-extension CGPoint {
-    func length() -> CGFloat {
-        return sqrt(x*x + y*y)
-    }
-    
-    func normalized() -> CGPoint {
-        return self / length()
+extension backGround {
+    func addMoreBackgroundNode(){
+        print("Add background")
     }
 }
 
-
-class enemyShip: SKSpriteNode {
+class enemyShip: SKSpriteNode, backGround {
     var hp = 4
     var laserSpawnTime : TimeInterval = 0
 }
@@ -57,6 +31,8 @@ class playerShip: SKSpriteNode {
     var shield : Double = 0.0
     var armor : Double = 0.0
     var willDie : Bool = false
+    var laserSpawnTime : TimeInterval = 0
+    
     
     func gotHit(damage: Double){
         if shield > damage {
@@ -71,6 +47,7 @@ class playerShip: SKSpriteNode {
             }
         }
     }
+    
     
     func addPlayersItem() {
         /*let engine = SKSpriteNode(imageNamed: "spaceParts_043")
@@ -100,15 +77,20 @@ class playerShip: SKSpriteNode {
 
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
-    let player = playerShip(imageNamed: "spaceShips_007")
-    let score1 = SKSpriteNode(imageNamed: "numeral0")
-    let score2 = SKSpriteNode(imageNamed: "numeral0")
-    let score3 = SKSpriteNode(imageNamed: "numeral0")
-    let playerLifeNum = SKSpriteNode(imageNamed: "numeral0")
-    var directionNodeCoord = CGPoint()
-    var angleDifference : Float = 0
+    private let player = playerShip(imageNamed: "spaceShips_001")
+    private let score1 = SKSpriteNode(imageNamed: "numeral0")
+    private let score2 = SKSpriteNode(imageNamed: "numeral0")
+    private let score3 = SKSpriteNode(imageNamed: "numeral0")
+    private let playerLifeNum = SKSpriteNode(imageNamed: "numeral0")
+    private var directionNodeCoord = CGPoint()
+    private var angleDifference : Float = 0
     private var activeTouches = [UITouch:String]()
     private var isAccelerated : Bool = false
+    private var isShooting : Bool = false
+    private var map : SKTileMapNode = SKTileMapNode()
+    private var coordinateColumn : Int = 0
+    private var coordinateRow : Int = 0
+    
     
     var score : Int = 0
     
@@ -132,11 +114,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
     func centerOnNode(node: SKNode) {
         let cameraPositionInScene: CGPoint = node.scene!.convert(node.position, from: node.parent!)
         
         node.parent?.position = CGPoint(x:(node.parent?.position.x)! - cameraPositionInScene.x, y:(node.parent?.position.y)! - cameraPositionInScene.y)
     }
+    
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
@@ -170,12 +154,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
-    func getPlayerDirection() -> Float {
-        return reverseAngle(angle: Float(player.zRotation) / Float.pi * Float(180))
+    func reversezRotation(zRotation: CGFloat) -> CGFloat {
+        if (zRotation < 0){
+            return CGFloat.pi + zRotation
+        } else {
+            return zRotation - CGFloat.pi
+        }
     }
     
     
-    func getTouchDirection(coordinate: CGPoint) -> Float {
+    func getDirection(zRotation: CGFloat) -> Float {
+        return reverseAngle(angle: Float(zRotation) / Float.pi * Float(180))
+    }
+    
+    
+    func getDirection(coordinate: CGPoint) -> Float {
         if (coordinate.y >= 0){
             return -atan(Float(coordinate.x) / Float(coordinate.y)) * 180 / Float.pi
         } else {
@@ -187,8 +180,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
     func applyAngularForceTo(node: SKSpriteNode, angle: Float){
-        let angleSpeed : CGFloat = 3
+        let angleSpeed : CGFloat = 4
         if (angle < -180) {
             node.physicsBody?.angularVelocity = -angleSpeed
         } else if (angle < -3) {
@@ -202,12 +196,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    
     // Add force to ship based on the position
-    func accelerate(anglePosition: Float){
+    func accelerate(anglePosition: Float, maxSpeed: CGVector, accelerateForce: Double){
         let x = sin(-anglePosition * Float.pi / 180)
         let y = cos(-anglePosition * Float.pi / 180)
-        let speed : Double = 20
-        player.physicsBody?.applyForce(CGVector(dx: speed * Double(x), dy: speed * Double(y)))
+        
+        if (player.physicsBody?.velocity ?? CGVector(dx: 0, dy: 0)) < maxSpeed {
+            player.physicsBody?.applyForce(CGVector(dx: accelerateForce * Double(x), dy: accelerateForce * Double(y)))
+        }
     }
     
     
@@ -227,12 +224,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         redScreen.run(SKAction.sequence([SKAction.fadeOut(withDuration: 0.2), SKAction.removeFromParent()]))
     }
     
-
+    
+    func startShooting(){
+        isShooting = true
+    }
+    
+    
+    func endShooting(){
+        isShooting = false
+    }
+    
+    
     override func update(_ currentTime: TimeInterval) {
+        coordinateColumn = map.tileColumnIndex(fromPosition: player.position)
+        coordinateRow = map.tileRowIndex(fromPosition: position)
+        
+        
         currentSystemTime = currentTime
         
-        let touchDirection = getTouchDirection(coordinate: directionNodeCoord)
-        let playerDirection = getPlayerDirection()
+        let touchDirection = getDirection(coordinate: directionNodeCoord)
+        let playerDirection = getDirection(zRotation: player.zRotation)
         if directionNodeCoord.x == 0 && directionNodeCoord.y == 0 {
             angleDifference = 0
         } else {
@@ -242,9 +253,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         applyAngularForceTo(node: player, angle: angleDifference)
         
         if isAccelerated {
-            accelerate(anglePosition: getPlayerDirection())
+            let maxSpeed : CGVector = CGVector(dx: 250, dy: 250)
+            let accelerateForce : Double = 20
+            accelerate(anglePosition: getDirection(zRotation: player.zRotation), maxSpeed: maxSpeed, accelerateForce: accelerateForce)
         }
-        
+        if isShooting {
+            if ((currentTime - player.laserSpawnTime) > 0.3){
+                player.laserSpawnTime = currentTime
+                self.addPlayerLaser()
+            }
+        }
     }
     
     
@@ -270,24 +288,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         for touch in touches {
             let touchLocation = touch.location(in: self)
-            if let node : SKNode = self.physicsWorld.body(at: touchLocation)?.node {
-                if node.name == "directionNode" {
-                    print("directionNode touch began")
-                    activeTouches[touch] = "direction"
-                    directionNodeCoord = touch.location(in: self) - node.position
+            self.physicsWorld.enumerateBodies(at: touchLocation, using: {body,stop in
+                if let node : SKNode = body.node {
+                    if node.name == "directionNode" {
+                        print("directionNode touch began")
+                        self.activeTouches[touch] = "direction"
+                        self.directionNodeCoord = touch.location(in: self) - node.position
+                    }
+                    
+                    if node.name == "accelerateNode" {
+                        
+                        self.isAccelerated = true
+                        print("accelerateNode touch began")
+                        self.activeTouches[touch] = "accelerate"
+                    }
+                    if node.name == "shootNode" {
+                        self.startShooting()
+                        self.activeTouches[touch] = "shoot"
+                    }
                 }
                 
-                if node.name == "accelerateNode" {
-                    
-                    isAccelerated = true
-                    print("accelerateNode touch began")
-                    activeTouches[touch] = "accelerate"
-                }
-                if node.name == "shootNode" {
-                    print("shootNode touch began")
-                    activeTouches[touch] = "shoot"
-                }
-            }
+            })
+            
             
         }
     }
@@ -298,15 +320,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         for touch in touches {
             let touchLocation = touch.location(in: self)
-            if let node : SKNode = self.physicsWorld.body(at: touchLocation)?.node {
-                if node.name == "directionNode" {
-                    print("directionNode touch began")
-                    directionNodeCoord = touch.location(in: self) - node.position
-                    
-                    print("player direction: ", getPlayerDirection())
-
+            self.physicsWorld.enumerateBodies(at: touchLocation, using: {body,stop in
+                if let node : SKNode = body.node {
+                    if node.name == "directionNode" {
+                        print("directionNode touch began")
+                        self.directionNodeCoord = touch.location(in: self) - node.position
+                        
+                        print("player direction: ", self.getDirection(zRotation: self.player.zRotation))
+                        
+                    }
                 }
-            }
+            })
         }
     }
     
@@ -323,6 +347,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 isAccelerated = false
             } else if button == "direction" {
                 directionNodeCoord = CGPoint(x: 0, y: 0)
+            } else if button == "shoot" {
+                if (touch.tapCount == 2){
+                    print("Double tapped")
+                    startShooting()
+                } else {
+                    endShooting()
+                }
             }
             activeTouches[touch] = nil
             
@@ -350,25 +381,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    func addProjectile(direction: Float, position: CGPoint, imageName: String, speed: Double) -> SKSpriteNode{
+        let projectile = SKSpriteNode(imageNamed: imageName)
+        
+        projectile.zRotation = reversezRotation(zRotation: player.zRotation)
+        projectile.position = position
+        projectile.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: projectile.size.width,
+                                                                   height: projectile.size.height))
+        self.world?.addChild(projectile)
+        
+        let anglePosition = getDirection(zRotation: player.zRotation)
+        let x = sin(-anglePosition * Float.pi / 180)
+        let y = cos(-anglePosition * Float.pi / 180)
+        projectile.physicsBody?.applyImpulse(CGVector(dx: speed * Double(x), dy: speed * Double(y)))
+        return projectile
+    }
+    
+    
     func addPlayerLaser(){
-        // Create a laser for each gun the player has
-        self.player.enumerateChildNodes(withName: "playerGun", using: {
-            (node: SKNode!, stop: UnsafeMutablePointer <ObjCBool>) -> Void in
-            let laser = SKSpriteNode(imageNamed: "laserBlue15")
-            laser.setScale(0.5)
-            let speed: Double = 5
-            laser.zPosition = 2
-            laser.position = CGPoint(x: self.player.position.x + node.position.x/2, y: self.player.position.y + node.position.y)
-            
-            laser.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: laser.size.width,
-                                                                  height: laser.size.height))
-            laser.physicsBody?.categoryBitMask = playerLaserCategory
-            laser.physicsBody?.contactTestBitMask = enemyShipCategory
-            laser.physicsBody?.collisionBitMask = 0
-            laser.physicsBody?.linearDamping = 0
-            self.addChild(laser)
-            laser.physicsBody?.applyImpulse(CGVector(dx: 0.0, dy: speed))
-        })
+        let laser = addProjectile(direction: getDirection(zRotation: player.zRotation), position: player.position, imageName: "laserRed05", speed: 20)
+        
+        laser.physicsBody?.categoryBitMask = playerLaserCategory
+        laser.physicsBody?.contactTestBitMask = enemyShipCategory
+        laser.physicsBody?.collisionBitMask = 0
+        laser.physicsBody?.linearDamping = 0
     }
     
     
@@ -382,6 +418,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shot.run(SKAction.sequence([actionFade, actionDone]))
     }
     
+    
     func enemyPlayerExplode(x: CGFloat, y: CGFloat){
         let shot = SKSpriteNode(imageNamed: "laserRed08")
         shot.setScale(0.5)
@@ -392,6 +429,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         shot.run(SKAction.sequence([actionFade, actionDone]))
     }
     
+    
     func updateScore(){
         let charInt1 : Int = Int(score / 100)
         let charInt2: Int = Int((score - charInt1*100) / 10)
@@ -400,6 +438,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         putNumToNode(scoreChar: String(charInt2), charNode: score2)
         putNumToNode(scoreChar: String(charInt3), charNode: score3)
     }
+    
     
     //scoreChar needs to be less than 10
     func putNumToNode(scoreChar: String, charNode: SKSpriteNode){
@@ -494,28 +533,59 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     
+    func addAsteroid(position: CGPoint){
+        let asteroidName = "asteroid2"
+        let asteroid = SKSpriteNode(imageNamed: asteroidName)
+        asteroid.position = position
+        asteroid.size = CGSize(width: 90, height: 90)
+        asteroid.zPosition = -1
+        asteroid.physicsBody = SKPhysicsBody(circleOfRadius: asteroid.size.width/2)
+        asteroid.physicsBody?.angularDamping = 0
+        asteroid.physicsBody?.angularVelocity = 0.2
+        asteroid.physicsBody?.collisionBitMask = 0
+        asteroid.physicsBody?.categoryBitMask = 0
+        
+        world?.addChild(asteroid)
+    }
+    
     func createWorld(){
+        let starGroups = SKTileSet(named: "Background")!.tileGroups[0]
+        map = SKTileMapNode(tileSet: SKTileSet(named: "Background")!, columns: 200, rows: 200, tileSize: CGSize(width: 150, height: 150), fillWith: starGroups)
+        
+        self.world?.addChild(map)
+        
+        map.position = CGPoint(x: 0, y: 0)
+        map.physicsBody?.collisionBitMask = 0
+        map.zPosition = -1
+        map.setScale(2)
+        
+        let newPlanet = Planet(planetName.Buenov)
+        map.setTileGroup(newPlanet.planetTileGroup, forColumn: 100, row: 100)
+        
+        
+        
+        
         // Add players
-        player.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
-        player.size = CGSize(width: 50, height: 50)
+        player.position = CGPoint(x: 0, y: 0)
+        player.setScale(0.5)
+        player.name = "player"
         
         self.world?.addChild(player)
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: CGSize(width: player.size.width, height: player.size.height))
-        player.physicsBody?.linearDamping = 0.5
+        player.physicsBody?.linearDamping = 0.2
         player.physicsBody?.angularDamping = 0
         player.physicsBody?.collisionBitMask = 0x1
         
-        let backgroundNode = SKSpriteNode(imageNamed: "starfield")
-        backgroundNode.position = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
-        backgroundNode.physicsBody?.collisionBitMask = 0
-        backgroundNode.zPosition = -1
-        self.world?.addChild(backgroundNode)
+        addAsteroid(position: CGPoint(x: -100, y: 100))
+        addAsteroid(position: CGPoint(x: -500, y: -200))
+        addAsteroid(position: CGPoint(x: -800, y: -20))
         
     }
     
     
     override func didMove(to view: SKView) {
         print("Move to game scene, begin making scene")
+        self.backgroundColor = UIColor.black
         
         // Camera setup
         self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
@@ -532,7 +602,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.overlay?.zPosition = 10
         self.overlay?.name = "overlay"
         addChild(self.overlay!)
-        
         
         addPauseButton()
         addControlPad()
