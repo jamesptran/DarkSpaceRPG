@@ -254,7 +254,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if isAccelerated {
             let maxSpeed : CGVector = CGVector(dx: 250, dy: 250)
-            let accelerateForce : Double = 20
+            let accelerateForce : Double = 200000
             accelerate(anglePosition: getDirection(zRotation: player.zRotation), maxSpeed: maxSpeed, accelerateForce: accelerateForce)
         }
         if isShooting {
@@ -534,7 +534,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     
     func addAsteroid(position: CGPoint){
-        let asteroidName = "asteroid2"
+        let asteroidName = "asteroid"
         let asteroid = SKSpriteNode(imageNamed: asteroidName)
         asteroid.position = position
         asteroid.size = CGSize(width: 90, height: 90)
@@ -542,8 +542,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         asteroid.physicsBody = SKPhysicsBody(circleOfRadius: asteroid.size.width/2)
         asteroid.physicsBody?.angularDamping = 0
         asteroid.physicsBody?.angularVelocity = 0.2
-        asteroid.physicsBody?.collisionBitMask = 0
-        asteroid.physicsBody?.categoryBitMask = 0
+        asteroid.physicsBody?.collisionBitMask = 0x1
+        asteroid.physicsBody?.categoryBitMask = 0x1
+        asteroid.physicsBody?.mass = 10000
         
         world?.addChild(asteroid)
     }
@@ -575,6 +576,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.linearDamping = 0.2
         player.physicsBody?.angularDamping = 0
         player.physicsBody?.collisionBitMask = 0x1
+        player.physicsBody?.categoryBitMask = 0x1
+        player.physicsBody?.mass = 1000
         
         addAsteroid(position: CGPoint(x: -100, y: 100))
         addAsteroid(position: CGPoint(x: -500, y: -200))

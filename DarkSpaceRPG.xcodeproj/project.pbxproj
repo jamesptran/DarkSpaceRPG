@@ -13,6 +13,7 @@
 		75076AE11E6DC25E003C7B68 /* Stations.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75076AE01E6DC25E003C7B68 /* Stations.xcassets */; };
 		753D0A261E9424B20003C662 /* Projectile.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 753D0A251E9424B20003C662 /* Projectile.xcassets */; };
 		759E424B1E6FC9C3000577ED /* Control.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 759E424A1E6FC9C3000577ED /* Control.xcassets */; };
+		75AB6C891ECD5E2200CBDEAE /* AsteroidClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75AB6C881ECD5E2200CBDEAE /* AsteroidClass.swift */; };
 		75BA2C5B1E9BDB0800C61236 /* Background.sks in Resources */ = {isa = PBXBuildFile; fileRef = 75BA2C5A1E9BDB0800C61236 /* Background.sks */; };
 		75BA2C5D1E9BDF0400C61236 /* BackgroundTiles.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 75BA2C5C1E9BDF0400C61236 /* BackgroundTiles.xcassets */; };
 		75C74F331E6D1F3700CFEF06 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75C74F321E6D1F3700CFEF06 /* AppDelegate.swift */; };
@@ -56,6 +57,7 @@
 		75076AE01E6DC25E003C7B68 /* Stations.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Stations.xcassets; sourceTree = "<group>"; };
 		753D0A251E9424B20003C662 /* Projectile.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Projectile.xcassets; sourceTree = "<group>"; };
 		759E424A1E6FC9C3000577ED /* Control.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Control.xcassets; sourceTree = "<group>"; };
+		75AB6C881ECD5E2200CBDEAE /* AsteroidClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsteroidClass.swift; sourceTree = "<group>"; };
 		75BA2C5A1E9BDB0800C61236 /* Background.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Background.sks; sourceTree = "<group>"; };
 		75BA2C5C1E9BDF0400C61236 /* BackgroundTiles.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = BackgroundTiles.xcassets; sourceTree = "<group>"; };
 		75C74F2F1E6D1F3700CFEF06 /* DarkSpaceRPG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DarkSpaceRPG.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 				75C74F381E6D1F3700CFEF06 /* GameScene.swift */,
 				75D9FE541ECD2AC9002BCFF1 /* ExtensionFunctions.swift */,
 				75D9FE521ECD29FB002BCFF1 /* PlanetClass.swift */,
+				75AB6C881ECD5E2200CBDEAE /* AsteroidClass.swift */,
 				75BA2C5A1E9BDB0800C61236 /* Background.sks */,
 				75BA2C5C1E9BDF0400C61236 /* BackgroundTiles.xcassets */,
 				75D91B8F1E6F956F006B67A1 /* Effects.xcassets */,
@@ -328,6 +331,7 @@
 				75C74F681E6D1F8400CFEF06 /* MainMenuScene.swift in Sources */,
 				75C74F331E6D1F3700CFEF06 /* AppDelegate.swift in Sources */,
 				75D9FE551ECD2AC9002BCFF1 /* ExtensionFunctions.swift in Sources */,
+				75AB6C891ECD5E2200CBDEAE /* AsteroidClass.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
